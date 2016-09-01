@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>App</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+  <link rel="stylesheet" href="https://necolas.github.io/normalize.css/4.1.1/normalize.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="style.css" media="screen" title="no title" charset="utf-8">
+</head>
+<body>
+
+  <div class="container">
+
+
+    <div class="popup hidden">
+      <form class="photo popup-window" id="photo_form" enctype="multipart/form-data">
+        <label id="photo_drop" class="photo-drop">
+          <input type="file" id="photo_input" class="hidden">
+          <span id="photo_drop_area">Drag photo here</span>
+        </label>
+        <button name="photo-send" id="photo_form_send">Send</button>
+        <button name="photo-cancel" id="photo_form_close">Cancel</button>
+      </form>
+    </div>
+
+    <div class="popup ">
+      <form class="sign popup-window" id="sign_form">
+        <div class="sign-title">Authorization</div>
+        <input type="text" placeholder="Full name" name="sign-name">
+        <input type="text" placeholder="Nickname" name="sign-nick">
+        <button name="sign-enter">Sign up</button>
+      </form>
+    </div>
+
+    <div class="side">
+
+      <div class="logo">
+        <img src="logo.png" alt="">
+        <div class="logo-text">NYAN C<span>h</span>AT</div>
+      </div>
+
+
+      <div class="user" id="user_info">
+        <button class="user-photo">
+          <img src="/no.png" alt="">
+        </button>
+        <div class="user-name">Hello there!</div>
+      </div>
+
+      <div class="users-list" id="user_list"></div>
+    </div>
+
+
+    <div class="main chat">
+
+        <div class="chat-box" id="chat_box"></div>
+        <form class="chat-form" id="chat_form">
+          <input type="text" placeholder="Type your message.." name="chat-message">
+          <button name="chat-send">Send</button>
+        </form>
+      </div>
+
+      <div id="notify" class="notification-list"></div>
+
+  </div>
+
+
+
+  <script type="text/x-handlebars-template" id="messageTmpl">
+    {{#each this}}
+      <div class="message message-from-{{nick}}">
+        <div class="message-photo">
+          <img src="{{src}}" alt="" class="photo-of-{{nick}}">
+        </div>
+        <div class="message-info">
+          <div class="message-top">
+            <div class="message-name">{{name}}</div>
+            <div class="message-time">{{time}}</div>
+            <div class="message-date">{{date}}</div>
+          </div>
+          <div class="message-text">
+            {{text}}
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </script>
+
+
+  <script type="text/x-handlebars-template" id="notifyTmpl">
+    <div class="notification {{type}}">
+      <div class="notification-message">{{text}}</div>
+      <div class="notification-close" data-role="close">x</div>
+    </div>
+  </script>
+
+  <script type="text/x-handlebars-template" id="userInfoTmpl">
+    <button class="user-photo" id="user_photo_btn">
+        <img src="/no.png" alt="" class="photo-of-{{nick}}">
+    </button>
+    <div class="user-name">{{name}} <a href="#" id="userNick">@{{nick}}</a></div>
+  </script>
+
+  <script type="text/x-handlebars-template" id="userListTmpl">
+    {{#each this}}
+      <div class="users-item" id="user_list_{{nick}}" >
+        <div class="users-name">{{name}} <a href="#" data-role="nickname">@{{nick}}</a></div>
+      </div>
+    {{/each}}
+  </script>
+
+  <script type="text/javascript" src="common.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+</body>
+</html>
