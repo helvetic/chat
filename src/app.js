@@ -23,6 +23,9 @@ let user = {
 let socket = new WebSocket("ws://localhost:8081");
 
 
+  window.setInterval(() => {
+    socket.send(JSON.stringify({type:'ping'}));
+  }, 60000);
 
 // FORMS SUBMIT
 sign_form.addEventListener('submit', function(e){
