@@ -17,7 +17,11 @@ wss.on('connection', ws => {
 
     try{
 
-      if(messageObj.type == 'info'){
+      if(messageObj.type == 'ping'){
+        message = JSON.stringify({
+          type: 'pong'
+        });
+      }else if(messageObj.type == 'info'){
 
         if(!messageObj.nick) throw new Error('You must take a nickname');
         if(!messageObj.name) throw new Error('You must type your name');
@@ -74,7 +78,7 @@ wss.on('connection', ws => {
 
       }else if(~messageObj.type.indexOf('image')){
         // image handle
-        let base64Data = messageObj.src.replace(/^data:image\/png;base64,/,"")
+        let base64Data = messageObj.src.replace(/^data:image\/(png|jpg|jpeg|gif);base64,/,"")
         fs.writeFile(`./uploads/${messageObj.name}`, base64Data, 'base64', function(err) {
           if (err) throw new Error('Error' + err);
         });
